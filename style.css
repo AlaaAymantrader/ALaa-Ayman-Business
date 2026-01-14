@@ -1,0 +1,77 @@
+body {
+  background: radial-gradient(circle at top, #0f2027, #000);
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 420px;
+  margin: auto;
+  padding: 30px 20px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  opacity: 0.8;
+  margin-bottom: 25px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.timer {
+  background: rgba(255,0,0,0.1);
+  padding: 15px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.btn {
+  display: block;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #fff;
+}
+
+.primary {
+  background: linear-gradient(90deg, #ff512f, #f09819);
+}
+
+.secondary {
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+}
+
+.trust, .faq {
+  margin-top: 30px;
+  text-align: left;
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 12px;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+.disclaimer {
+  margin-top: 10px;
+  font-size: 0.7rem;
+}
