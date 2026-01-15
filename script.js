@@ -53,7 +53,6 @@ document.querySelectorAll('.magnetic').forEach(btn => {
 
 // Light follow
 const light = document.getElementById("light-follow");
-
 document.addEventListener("mousemove", e => {
   light.style.left = e.clientX + "px";
   light.style.top = e.clientY + "px";
