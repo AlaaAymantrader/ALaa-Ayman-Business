@@ -1,152 +1,131 @@
-// ============================
-// Countdown Timer
-// ============================
-let time = 15 * 60;
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
 
-const countdownEl = document.getElementById("countdown");
-const countdownLargeEl = document.getElementById("countdownLarge");
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #111, #000);
+  color: #fff;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
 
-setInterval(() => {
-  if (time > 0) time--;
+/* HERO */
+.hero {
+  min-height: 100vh;
+  background: url("hero.jpeg") center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+}
 
-  const min = Math.floor(time / 60);
-  const sec = time % 60;
-  const formatted = `${min}:${sec < 10 ? "0" + sec : sec}`;
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.9));
+}
 
-  if (countdownEl) countdownEl.textContent = formatted;
-  if (countdownLargeEl) countdownLargeEl.textContent = formatted;
-}, 1000);
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+}
 
+h1 {
+  font-size: 2.4rem;
+  line-height: 1.2;
+}
 
-// ============================
-// Live Counters (Simulated)
-// ============================
-const membersEl = document.getElementById("members");
-const onlineEl = document.getElementById("online");
-const signalsEl = document.getElementById("signals");
+p {
+  color: #aaa;
+}
 
-setInterval(() => {
-  if (membersEl) {
-    let current = parseInt(membersEl.textContent.replace(/,/g, ""));
-    current += Math.floor(Math.random() * 2);
-    membersEl.textContent = current.toLocaleString();
+/* CTA */
+.cta {
+  display: inline-block;
+  padding: 16px 36px;
+  border-radius: 50px;
+  text-decoration: none;
+  color: white;
+  margin-top: 20px;
+}
+
+.glow {
+  background: black;
+  box-shadow: 0 0 20px rgba(0,255,255,0.4);
+  border: 2px solid cyan;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* STATS */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 60px 20px;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #111;
+  padding: 25px;
+  border-radius: 16px;
+  width: 260px;
+  box-shadow: 0 0 20px rgba(0,255,255,0.1);
+}
+
+/* TRUST */
+.trust {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.trust-grid {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* DISCLAIMER */
+.disclaimer {
+  max-width: 700px;
+  margin: auto;
+  padding: 40px 20px;
+  color: #777;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* STICKY CTA */
+.sticky-cta {
+  position: fixed;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 30px;
+  border-radius: 50px;
+  z-index: 999;
+  text-decoration: none;
+  color: white;
+}
+
+/* ANIMATIONS */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
   }
-
-  if (onlineEl) {
-    let base = 90 + Math.floor(Math.random() * 60);
-    onlineEl.textContent = base;
-  }
-
-  if (signalsEl) {
-    let base = 1400 + Math.floor(Math.random() * 120);
-    signalsEl.textContent = base;
-  }
-}, 4000);
-
-
-// ============================
-// Scroll Reveal
-// ============================
-function revealOnScroll() {
-  const reveals = document.querySelectorAll(".reveal");
-  reveals.forEach(el => {
-    const windowHeight = window.innerHeight;
-    const elementTop = el.getBoundingClientRect().top;
-    const elementVisible = 120;
-
-    if (elementTop < windowHeight - elementVisible) {
-      el.classList.add("active");
-    }
-  });
 }
-
-window.addEventListener("scroll", revealOnScroll);
-revealOnScroll();
-
-
-// ============================
-// Reviews (Rotating)
-// ============================
-const reviews = [
-  { name: "Ahmed", country: "UAE 🇦🇪", stars: 5, text: "Very clear guidance and calm style." },
-  { name: "Fatima", country: "Morocco 🇲🇦", stars: 5, text: "Beginner friendly and well explained." },
-  { name: "Daniel", country: "Germany 🇩🇪", stars: 4, text: "Professional and structured." },
-  { name: "Youssef", country: "Saudi Arabia 🇸🇦", stars: 5, text: "Consistent approach, no hype." },
-  { name: "Sara", country: "UK 🇬🇧", stars: 4, text: "Simple and easy to follow." }
-];
-
-const reviewContainer = document.getElementById("testimonialSlider");
-
-function renderStars(count) {
-  return "⭐".repeat(count);
-}
-
-function updateReview() {
-  if (!reviewContainer) return;
-
-  const r = reviews[Math.floor(Math.random() * reviews.length)];
-
-  const card = document.createElement("div");
-  card.className = "review-card";
-
-  card.innerHTML = `
-    <div class="review-header">
-      <div class="avatar">${r.name.charAt(0)}</div>
-      <div>
-        <div class="name">${r.name} <span class="verified">✔</span></div>
-        <div class="country">${r.country}</div>
-      </div>
-    </div>
-    <div class="stars">${renderStars(r.stars)}</div>
-    <div class="review-text">${r.text}</div>
-  `;
-
-  reviewContainer.innerHTML = "";
-  reviewContainer.appendChild(card);
-
-  setTimeout(() => {
-    card.classList.add("active");
-  }, 100);
-}
-
-setInterval(updateReview, 5000);
-updateReview();
-
-
-// ============================
-// Join Popups (Simulated)
-// ============================
-const names = ["Ahmed", "Ali", "Omar", "Youssef", "Daniel", "Michael", "Sara", "Fatima"];
-const countries = ["UAE", "Saudi Arabia", "Germany", "USA", "UK", "Canada", "Morocco"];
-
-function showJoinPopup() {
-  const container = document.getElementById("joinPopups");
-  if (!container) return;
-
-  const name = names[Math.floor(Math.random() * names.length)];
-  const country = countries[Math.floor(Math.random() * countries.length)];
-
-  const popup = document.createElement("div");
-  popup.className = "join-popup";
-  popup.textContent = `${name} from ${country} joined the community`;
-
-  container.appendChild(popup);
-
-  setTimeout(() => {
-    popup.remove();
-  }, 6000);
-}
-
-setInterval(showJoinPopup, 6000);
-
-
-// ============================
-// CTA Pulse Loop
-// ============================
-setInterval(() => {
-  document.querySelectorAll(".glow").forEach(btn => {
-    btn.classList.remove("pulse");
-    void btn.offsetWidth;
-    btn.classList.add("pulse");
-  });
-}, 7000);
