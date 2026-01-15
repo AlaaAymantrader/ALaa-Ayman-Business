@@ -3,87 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Invest With Alaa | Verified Trading Education</title>
-    <meta name="description" content="Join Alaa's trading community. Learn risk management, market analysis, and disciplined trading strategies.">
+    <title>Invest With Alaa | Institutional Grade Education</title>
+    <meta name="description" content="Professional trading education. Master risk management and market structure with Alaa.">
     
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <div class="ticker__item"><i class="fas fa-circle live-dot"></i> Live Market Analysis</div>
-            <div class="ticker__item">Forex • Crypto • Stocks</div>
-            <div class="ticker__item">Risk Management First</div>
-            <div class="ticker__item">Join the Educational Community</div>
-            <div class="ticker__item"><i class="fas fa-circle live-dot"></i> Live Market Analysis</div>
-            <div class="ticker__item">Forex • Crypto • Stocks</div>
-            <div class="ticker__item">Risk Management First</div>
-            <div class="ticker__item">Join the Educational Community</div>
+    <div class="status-bar">
+        <div class="market-status">
+            <span class="dot live"></span> MARKET: <span id="market-state">OPEN</span>
         </div>
+        <div class="server-time" id="clock">00:00:00 UTC</div>
     </div>
 
-    <main class="container">
+    <main class="dashboard-container">
         
-        <div class="profile-card">
-            <div class="img-wrapper">
-                <img src="hero.jpg" alt="Alaa Trader" class="avatar">
-                
-                <div class="verify-badge-container">
-                    <div class="sonar-wave"></div>
-                    <img src="verified.webp" alt="Verified" class="verify-icon">
+        <section class="profile-section">
+            <div class="avatar-group">
+                <div class="avatar-ring">
+                    <img src="hero.jpg" alt="Alaa Trader" class="avatar-img">
+                </div>
+                <div class="badge-wrapper">
+                    <img src="verified.webp" alt="Verified" class="badge-icon">
+                    <div class="badge-ripple"></div>
                 </div>
             </div>
+
+            <h1 class="trader-name">ALAA CAPITAL <span class="pro-tag">PRO</span></h1>
+            <p class="trader-bio">Institutional Price Action & Risk Management.</p>
             
-            <div class="status-chip">
-                <i class="fas fa-user-check"></i> Verified Educator
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Focus</span>
+                    <span class="stat-value">XAU/USD</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Strategy</span>
+                    <span class="stat-value">Intraday</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Risk</span>
+                    <span class="stat-value">Low (1%)</span>
+                </div>
             </div>
-        </div>
+        </section>
 
-        <div class="content-wrapper">
-            <h1>Trading <span class="highlight">Without The Noise.</span></h1>
-            <p class="subtitle">Stop following random signals. Start understanding the market structure. Join <strong>Alaa Capital</strong> for daily educational breakdowns.</p>
-
-            <div class="button-group">
-                <a href="https://t.me/investwithalaa" class="btn-primary" target="_blank">
-                    <div class="icon-box"><i class="fab fa-telegram-plane"></i></div>
-                    <div class="btn-text">
-                        <span class="small">Free Access</span>
-                        <span class="large">Join Channel</span>
-                    </div>
-                    <i class="fas fa-arrow-right arrow-slide"></i>
-                </a>
-
-                <a href="https://t.me/trader_alaaayman" class="btn-secondary" target="_blank">
-                    <i class="fas fa-comment-alt"></i> Chat With Alaa
-                </a>
+        <section class="action-terminal">
+            <div class="terminal-header">
+                <i class="fas fa-satellite-dish"></i> ACCESS PORTAL
             </div>
-        </div>
+            
+            <a href="https://t.me/investwithalaa" class="action-btn btn-signal" target="_blank">
+                <div class="btn-content">
+                    <span class="btn-title">JOIN PUBLIC CHANNEL</span>
+                    <span class="btn-subtitle">Daily Analysis & setups</span>
+                </div>
+                <div class="btn-icon"><i class="fab fa-telegram-plane"></i></div>
+            </a>
 
-        <div class="features-row">
-            <div class="pill">
-                <i class="fas fa-chart-area blue"></i>
-                <span>Technical Analysis</span>
-            </div>
-            <div class="pill">
-                <i class="fas fa-shield-alt blue"></i>
-                <span>Risk Control</span>
-            </div>
-            <div class="pill">
-                <i class="fas fa-brain blue"></i>
-                <span>Psychology</span>
-            </div>
-        </div>
+            <a href="https://t.me/trader_alaaayman" class="action-btn btn-chat" target="_blank">
+                <div class="btn-content">
+                    <span class="btn-title">TRADER SUPPORT</span>
+                    <span class="btn-subtitle">Direct Consultation</span>
+                </div>
+                <div class="btn-icon"><i class="fas fa-comment-dots"></i></div>
+            </a>
+        </section>
 
-        <footer class="simple-footer">
-            <p>Trading involves risk. Educational content only.</p>
+        <section class="info-deck">
+            <h2 class="deck-title">CORE CURRICULUM</h2>
+            
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-chart-candlestick"></i></div>
+                <div class="card-text">
+                    <h3>Market Structure</h3>
+                    <p>Identify trends before they happen. No lagging indicators.</p>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="card-icon"><i class="fas fa-calculator"></i></div>
+                <div class="card-text">
+                    <h3>Risk Calculator</h3>
+                    <p>Learn to calculate lot sizes instantly to protect equity.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer class="legal-footer">
+            <div class="disclaimer-box">
+                <p><strong>RISK WARNING:</strong> Trading CFDs, Crypto, and Forex involves significant risk. The content provided is for <strong>educational purposes only</strong>.</p>
+            </div>
+            <div class="copyright">
+                &copy; <span id="year">2026</span> Alaa Capital. All rights reserved.
+            </div>
             <div class="links">
-                <a href="#">Privacy</a> • <a href="#">Terms</a>
+                <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
             </div>
-            <p class="copy">&copy; <span id="year">2026</span> Invest With Alaa</p>
         </footer>
 
     </main>
