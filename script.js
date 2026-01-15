@@ -24,5 +24,13 @@ function rotate() {
   }, 300);
 }
 
-setInterval(rotate, 2500);
+setInterval(rotate, 2600);
 rotate();
+
+// Subtle luxury parallax
+const heroImage = document.querySelector(".lux-image");
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  heroImage.style.transform = `translateY(${scrollY * 0.04}px)`;
+});
