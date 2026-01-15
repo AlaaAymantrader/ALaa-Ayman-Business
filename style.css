@@ -81,6 +81,7 @@ body {
     margin: 0 auto;
 }
 
+/* Your Hero Image */
 .avatar {
     width: 100%;
     height: 100%;
@@ -104,6 +105,7 @@ body {
     height: 100%;
     position: relative;
     z-index: 2;
+    object-fit: contain;
 }
 
 .sonar-wave {
@@ -145,7 +147,6 @@ h1 {
     display: inline-block;
 }
 
-/* A subtle underline accent */
 .highlight::after {
     content: '';
     position: absolute;
@@ -162,7 +163,7 @@ h1 {
     margin-bottom: 35px;
 }
 
-/* --- BUTTONS (The Tech Style) --- */
+/* --- BUTTONS --- */
 .button-group {
     width: 100%;
     display: flex;
@@ -180,6 +181,9 @@ h1 {
     justify-content: space-between;
     box-shadow: 0 10px 20px rgba(0, 82, 204, 0.25);
     transition: transform 0.2s;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-primary:active { transform: scale(0.98); }
@@ -210,6 +214,19 @@ h1 {
     50% { transform: translateX(5px); }
 }
 
+/* Click Ripple Effect */
+.ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-animation 0.6s linear;
+    pointer-events: none;
+}
+@keyframes ripple-animation {
+    to { transform: scale(4); opacity: 0; }
+}
+
 .btn-secondary {
     background: white;
     border: 2px solid #e1e4e8;
@@ -219,6 +236,11 @@ h1 {
     font-weight: 700;
     font-size: 1rem;
     transition: 0.2s;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }
 
 .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
@@ -253,5 +275,6 @@ h1 {
     padding-top: 50px;
     font-size: 0.75rem;
     color: #9aa5b1;
+    width: 100%;
 }
 .simple-footer a { color: #9aa5b1; text-decoration: none; }
