@@ -1,4 +1,4 @@
-// Countdown
+// COUNTDOWN TIMER
 let time = 15 * 60;
 const countdownEl = document.getElementById("countdown");
 
@@ -11,7 +11,7 @@ setInterval(() => {
   }
 }, 1000);
 
-// Fake live counters
+// FAKE LIVE COUNTERS (SOCIAL PROOF)
 const membersEl = document.getElementById("members");
 const onlineEl = document.getElementById("online");
 const copyingEl = document.getElementById("copying");
