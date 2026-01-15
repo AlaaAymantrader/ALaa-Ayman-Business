@@ -1,78 +1,33 @@
-const phrases = [
-  "Learn Trading Step by Step",
-  "Trading Education for Beginners",
-  "Free Trading Learning Group",
-  "Learn Market Basics",
-  "Trading Community on Telegram",
-  "Start Learning Trading Today",
-  "Trading Lessons Online",
-  "Understand How Trading Works",
-  "Market Education Hub",
-  "Learn Risk Management",
-  "Trading Knowledge Platform"
-];
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Dynamic Year Update
+    const yearElement = document.getElementById('year');
+    if (yearElement) {
+        yearElement.textContent = new Date().getFullYear();
+    }
 
-let i = 0;
-const text = document.getElementById("rotatingText");
+    // 2. 3D Tilt Effect for Cards (Premium Interaction)
+    // This adds a subtle 3D movement when user touches/hovers cards
+    const cards = document.querySelectorAll('.glass-card');
 
-function rotate() {
-  text.style.opacity = 0;
-  setTimeout(() => {
-    text.textContent = phrases[i];
-    text.style.opacity = 1;
-    i = (i + 1) % phrases.length;
-  }, 300);
-}
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            card.style.setProperty('--x', `${x}px`);
+            card.style.setProperty('--y', `${y}px`);
+        });
+    });
 
-setInterval(rotate, 2600);
-rotate();
-
-// Parallax effect
-const heroImage = document.querySelector(".lux-image");
-
-window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  heroImage.style.transform = `translateY(${scrollY * 0.05}px)`;
-});
-
-// 3D tilt on image
-heroImage.addEventListener("mousemove", (e) => {
-  const rect = heroImage.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  const midX = rect.width / 2;
-  const midY = rect.height / 2;
-
-  const rotateX = ((y - midY) / midY) * 6;
-  const rotateY = ((x - midX) / midX) * -6;
-
-  heroImage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-});
-
-heroImage.addEventListener("mouseleave", () => {
-  heroImage.style.transform = "rotateX(0) rotateY(0)";
-});
-
-// Magnetic buttons
-document.querySelectorAll(".lux-btn").forEach(btn => {
-  btn.addEventListener("mousemove", e => {
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
-  });
-
-  btn.addEventListener("mouseleave", () => {
-    btn.style.transform = "translate(0,0)";
-  });
-});
-
-// Finger-follow glow
-const glow = document.createElement("div");
-glow.id = "glow-follow";
-document.body.appendChild(glow);
-
-document.addEventListener("mousemove", (e) => {
-  glow.style.left = e.clientX + "px";
-  glow.style.top = e.clientY + "px";
+    // 3. Smooth Scroll Behavior for any internal links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
 });
