@@ -4,11 +4,11 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-  background: radial-gradient(circle at top, #0c0f1a, #05070d);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #0a0f1f, #02030a);
   color: #ffffff;
 }
- 
+
 .lux-container {
   max-width: 720px;
   margin: auto;
@@ -23,18 +23,17 @@ body {
   padding: 16px 20px;
   display: flex;
   justify-content: flex-end;
-  background: linear-gradient(to bottom, rgba(5,7,13,0.9), transparent);
   backdrop-filter: blur(10px);
 }
 
 .lux-float {
-  background: linear-gradient(135deg, #d4af37, #f5d67b);
+  background: linear-gradient(135deg, #5eead4, #6366f1);
   color: #000;
   font-weight: 800;
   padding: 12px 20px;
   border-radius: 999px;
   text-decoration: none;
-  box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+  box-shadow: 0 10px 30px rgba(94,234,212,0.4);
 }
 
 .lux-hero {
@@ -64,15 +63,13 @@ h1 {
   margin-top: 28px;
   font-size: 2rem;
   font-weight: 700;
-  letter-spacing: -0.02em;
 }
 
 .lux-sub {
-  color: #d4af37;
+  color: #5eead4;
   font-weight: 600;
   min-height: 24px;
   margin-top: 6px;
-  transition: opacity 0.4s ease;
 }
 
 .lux-buttons {
@@ -92,14 +89,13 @@ h1 {
 }
 
 .lux-btn.primary {
-  background: linear-gradient(135deg, #d4af37, #f5d67b);
+  background: linear-gradient(135deg, #5eead4, #6366f1);
   color: #000;
-  box-shadow: 0 10px 30px rgba(212,175,55,0.4);
 }
 
 .lux-btn.outline {
-  border: 1px solid rgba(212,175,55,0.5);
-  color: #d4af37;
+  border: 1px solid #5eead4;
+  color: #5eead4;
 }
 
 .lux-btn.ghost {
@@ -107,8 +103,12 @@ h1 {
   color: #ffffff;
 }
 
+.glow {
+  box-shadow: 0 0 25px rgba(94,234,212,0.5);
+}
+
 .lux-btn:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .lux-card {
@@ -127,11 +127,11 @@ h1 {
 }
 
 .pulse {
-  animation: pulse 1.8s infinite;
+  animation: pulse 1.6s infinite;
 }
 
 @keyframes pulse {
   0% { transform: scale(1); }
-  50% { transform: scale(1.06); }
+  50% { transform: scale(1.07); }
   100% { transform: scale(1); }
 }
