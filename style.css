@@ -16,7 +16,6 @@ body {
   padding: 20px;
 }
 
-/* Hero */
 .hero {
   text-align: center;
   padding: 40px 20px;
@@ -34,16 +33,14 @@ h1 {
   margin-bottom: 10px;
 }
 
-h2 {
-  font-size: 22px;
-  margin-bottom: 10px;
+.rotating-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #22d3ee;
+  min-height: 24px;
+  margin: 10px 0 20px;
 }
 
-p {
-  opacity: 0.9;
-}
-
-/* Cards */
 .card {
   background: linear-gradient(180deg, #0f172a, #020617);
   border-radius: 18px;
@@ -53,7 +50,6 @@ p {
   border: 1px solid rgba(255,255,255,0.05);
 }
 
-/* Button */
 .btn {
   display: block;
   width: 100%;
@@ -65,14 +61,8 @@ p {
   text-decoration: none;
   font-weight: 700;
   margin-top: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.btn:active {
-  transform: scale(0.97);
-}
-
-/* Sticky Telegram Button */
 .sticky-telegram {
   position: fixed;
   bottom: 20px;
@@ -88,7 +78,6 @@ p {
   animation: float 2s ease-in-out infinite;
 }
 
-/* Animations */
 .animate {
   opacity: 0;
   transform: translateY(30px);
