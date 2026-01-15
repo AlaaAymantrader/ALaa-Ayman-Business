@@ -1,23 +1,109 @@
-// Countdown Timer
-let time = 15 * 60;
-const timerEl = document.getElementById("timer");
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
 
-setInterval(() => {
-  if (time > 0) {
-    time--;
-    let min = Math.floor(time / 60);
-    let sec = time % 60;
-    timerEl.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
+body {
+  margin: 0;
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+.hero {
+  min-height: 100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.85)),
+    url("hero.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+h1 {
+  font-size: 2.6rem;
+}
+
+p {
+  color: #ccc;
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 15px 40px;
+  border-radius: 40px;
+  color: white;
+  text-decoration: none;
+  background: black;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0,255,255,0.5);
+}
+
+.glow::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(90deg, cyan, magenta, cyan);
+  z-index: -1;
+  animation: border 4s linear infinite;
+}
+
+.glow::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background: black;
+  border-radius: 40px;
+  z-index: -1;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+.timer {
+  margin-top: 15px;
+  color: cyan;
+}
+
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.card {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 15px;
+  width: 180px;
+  box-shadow: 0 0 15px rgba(0,255,255,0.2);
+}
+
+@keyframes border {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+  100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
   }
-}, 1000);
-
-// Fake dynamic counters (visual only, no claims)
-const membersEl = document.getElementById("members");
-const onlineEl = document.getElementById("online");
-const signalsEl = document.getElementById("signals");
-
-setInterval(() => {
-  membersEl.textContent = (parseInt(membersEl.textContent) + Math.floor(Math.random() * 3)).toLocaleString();
-  onlineEl.textContent = Math.floor(100 + Math.random() * 50);
-  signalsEl.textContent = parseInt(signalsEl.textContent) + Math.floor(Math.random() * 2);
-}, 4000);
+}
