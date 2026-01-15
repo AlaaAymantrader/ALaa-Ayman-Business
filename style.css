@@ -4,7 +4,7 @@
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   background: linear-gradient(180deg, #020617, #0f172a);
   color: white;
   overflow-x: hidden;
@@ -16,27 +16,22 @@ body {
   padding: 20px;
 }
 
-.glass {
-  backdrop-filter: blur(20px);
-}
-
 .hero {
   text-align: center;
-  padding: 40px 20px;
+  padding: 60px 20px 40px;
 }
 
-.profile-wrapper {
-  width: 160px;
-  height: 160px;
+.avatar-wrap {
+  width: 150px;
+  height: 150px;
   margin: auto;
   border-radius: 50%;
   padding: 4px;
-  background: linear-gradient(270deg, #22d3ee, #3b82f6, #9333ea);
-  background-size: 400% 400%;
-  animation: borderGlow 6s linear infinite;
+  background: linear-gradient(135deg, #22d3ee, #3b82f6, #9333ea);
+  animation: glow 6s linear infinite;
 }
 
-.profile-pic {
+.avatar {
   width: 100%;
   height: 100%;
   border-radius: 50%;
@@ -44,76 +39,57 @@ body {
 }
 
 h1 {
-  margin-top: 15px;
+  margin-top: 20px;
 }
 
-.rotating-text {
+#rotatingText {
   color: #22d3ee;
-  font-weight: 600;
   min-height: 24px;
+  font-weight: 600;
 }
 
 .card {
   margin-top: 20px;
   padding: 20px;
-  border-radius: 18px;
+  border-radius: 20px;
   background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
 }
 
-/* Liquid Button */
-.btn,
-.sticky-telegram {
+.cta, .sticky-btn {
   display: inline-block;
-  text-decoration: none;
-  padding: 15px 22px;
+  margin-top: 20px;
+  padding: 15px 24px;
   border-radius: 999px;
   background: linear-gradient(135deg, #22d3ee, #3b82f6);
   color: black;
   font-weight: 800;
+  text-decoration: none;
   position: relative;
   overflow: hidden;
 }
 
-.liquid-btn::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle, rgba(255,255,255,0.4), transparent 60%);
-  opacity: 0;
-  transition: 0.4s;
-}
-
-.liquid-btn:hover::after {
-  opacity: 1;
-}
-
-.sticky-telegram {
+.sticky-btn {
   position: fixed;
   bottom: 20px;
   right: 20px;
+  z-index: 999;
 }
 
 footer {
   text-align: center;
   opacity: 0.6;
-  margin: 40px 0 80px;
+  margin: 60px 0 100px;
 }
 
-@keyframes borderGlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* Ripple effect */
+/* Ripple */
 .ripple {
   position: fixed;
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255,255,255,0.5), transparent);
+  background: radial-gradient(circle, rgba(255,255,255,0.4), transparent);
   pointer-events: none;
   transform: scale(0);
   animation: ripple 1s ease-out;
@@ -124,4 +100,9 @@ footer {
     transform: scale(15);
     opacity: 0;
   }
+}
+
+@keyframes glow {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
 }
