@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
     
-    // 1. Staggered Entrance Animation
-    // Elements load one by one for a clean effect
+    // 1. Dynamic Year Update
+    const yearSpan = document.getElementById('year');
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+
+    // 2. Staggered Entrance Animation
+    // Elements load one by one for a clean, premium effect
     const elements = [
         document.querySelector('.profile-card'),
         document.querySelector('h1'),
@@ -24,8 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Ripple Effect on Click (Material Design style)
-    const buttons = document.querySelectorAll('a');
+    // 3. Ripple Effect on Click
+    // Adds a "Material Design" touch feedback when buttons are clicked
+    const buttons = document.querySelectorAll('a.btn-primary');
     
     buttons.forEach(btn => {
         btn.addEventListener('click', function(e) {
@@ -33,15 +40,18 @@ document.addEventListener('DOMContentLoaded', () => {
             ripple.classList.add('ripple');
             this.appendChild(ripple);
             
-            let x = e.clientX - e.target.offsetLeft;
-            let y = e.clientY - e.target.offsetTop;
+            // Calculate position of click
+            let rect = e.target.getBoundingClientRect();
+            let x = e.clientX - rect.left;
+            let y = e.clientY - rect.top;
             
             ripple.style.left = `${x}px`;
             ripple.style.top = `${y}px`;
             
+            // Remove ripple after animation
             setTimeout(() => {
                 ripple.remove();
-            }, 300);
+            }, 600);
         });
     });
 });
