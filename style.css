@@ -4,10 +4,10 @@
 
 body {
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-  background: radial-gradient(circle at top, #111827, #020617);
-  color: #ffffff;
-  line-height: 1.6;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(180deg, #020617, #0f172a);
+  color: white;
+  overflow-x: hidden;
 }
 
 .container {
@@ -16,70 +16,89 @@ body {
   padding: 20px;
 }
 
+.glass {
+  backdrop-filter: blur(20px);
+}
+
 .hero {
   text-align: center;
   padding: 40px 20px;
 }
 
-.hero img {
+.profile-wrapper {
+  width: 160px;
+  height: 160px;
+  margin: auto;
+  border-radius: 50%;
+  padding: 4px;
+  background: linear-gradient(270deg, #22d3ee, #3b82f6, #9333ea);
+  background-size: 400% 400%;
+  animation: borderGlow 6s linear infinite;
+}
+
+.profile-pic {
   width: 100%;
-  border-radius: 18px;
-  margin-bottom: 20px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 h1 {
-  font-size: 28px;
-  margin-bottom: 10px;
+  margin-top: 15px;
 }
 
 .rotating-text {
-  font-size: 18px;
-  font-weight: 600;
   color: #22d3ee;
+  font-weight: 600;
   min-height: 24px;
-  margin: 10px 0 20px;
 }
 
 .card {
-  background: linear-gradient(180deg, #0f172a, #020617);
-  border-radius: 18px;
-  padding: 20px;
   margin-top: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
-  border: 1px solid rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
 }
 
-.btn {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 15px;
-  border-radius: 16px;
+/* Liquid Button */
+.btn,
+.sticky-telegram {
+  display: inline-block;
   text-decoration: none;
-  font-weight: 800;
-  margin-top: 20px;
-  color: #000;
+  padding: 15px 22px;
+  border-radius: 999px;
   background: linear-gradient(135deg, #22d3ee, #3b82f6);
+  color: black;
+  font-weight: 800;
   position: relative;
   overflow: hidden;
 }
 
-/* 🔥 GLOW BUTTON EFFECT */
-.glow-btn {
-  animation: pulse 1.8s infinite;
-  box-shadow: 0 0 15px rgba(34,211,238,0.7), 0 0 30px rgba(59,130,246,0.6);
-}
-
-.glow-btn::before {
+.liquid-btn::after {
   content: "";
   position: absolute;
-  inset: -2px;
-  border-radius: 18px;
-  background: linear-gradient(270deg, #22d3ee, #3b82f6, #9333ea, #22d3ee);
-  background-size: 400% 400%;
-  z-index: -1;
-  animation: borderGlow 3s linear infinite;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.4), transparent 60%);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.liquid-btn:hover::after {
+  opacity: 1;
+}
+
+.sticky-telegram {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+footer {
+  text-align: center;
+  opacity: 0.6;
+  margin: 40px 0 80px;
 }
 
 @keyframes borderGlow {
@@ -88,8 +107,21 @@ h1 {
   100% { background-position: 0% 50%; }
 }
 
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
+/* Ripple effect */
+.ripple {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.5), transparent);
+  pointer-events: none;
+  transform: scale(0);
+  animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+  to {
+    transform: scale(15);
+    opacity: 0;
+  }
 }
