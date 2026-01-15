@@ -1,23 +1,17 @@
-// COUNTDOWN TIMER
-let time = 15 * 60;
-const countdownEl = document.getElementById("countdown");
+// Scroll animation observer
+const animatedElements = document.querySelectorAll('.animate');
 
-setInterval(() => {
-  if (time > 0) {
-    time--;
-    let min = Math.floor(time / 60);
-    let sec = time % 60;
-    countdownEl.textContent = `${min}:${sec < 10 ? "0" + sec : sec}`;
-  }
-}, 1000);
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+    }
+  });
+}, {
+  threshold: 0.2
+});
 
-// FAKE LIVE COUNTERS (SOCIAL PROOF)
-const membersEl = document.getElementById("members");
-const onlineEl = document.getElementById("online");
-const copyingEl = document.getElementById("copying");
+animatedElements.forEach(el => observer.observe(el));
 
-setInterval(() => {
-  membersEl.textContent = (+membersEl.textContent.replace(/,/g,"") + Math.floor(Math.random()*3)).toLocaleString();
-  onlineEl.textContent = 90 + Math.floor(Math.random()*60);
-  copyingEl.textContent = 1400 + Math.floor(Math.random()*100);
-}, 3000);
+// Debug
+console.log("Invest With Alaa site loaded successfully");
