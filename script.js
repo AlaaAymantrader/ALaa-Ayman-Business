@@ -13,30 +13,40 @@ const phrases = [
   "Trading Knowledge Platform"
 ];
 
-let index = 0;
-const rotatingText = document.getElementById("rotatingText");
+let i = 0;
+const text = document.getElementById("rotatingText");
 
-function rotateText() {
-  rotatingText.style.opacity = 0;
+function rotate() {
+  text.style.opacity = 0;
   setTimeout(() => {
-    rotatingText.textContent = phrases[index];
-    rotatingText.style.opacity = 1;
-    index = (index + 1) % phrases.length;
+    text.textContent = phrases[i];
+    text.style.opacity = 1;
+    i = (i + 1) % phrases.length;
   }, 300);
 }
+setInterval(rotate, 2500);
+rotate();
 
-setInterval(rotateText, 2500);
-rotateText();
-
-// Water ripple touch effect
-document.addEventListener("click", function(e) {
+// Water ripple
+document.addEventListener("click", e => {
   const ripple = document.createElement("div");
   ripple.className = "ripple";
   ripple.style.left = e.clientX + "px";
   ripple.style.top = e.clientY + "px";
   document.body.appendChild(ripple);
+  setTimeout(() => ripple.remove(), 1000);
+});
 
-  setTimeout(() => {
-    ripple.remove();
-  }, 1000);
+// Magnetic buttons
+document.querySelectorAll('.magnetic').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const rect = btn.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    btn.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+  });
+
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = `translate(0,0)`;
+  });
 });
