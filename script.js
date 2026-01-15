@@ -27,10 +27,10 @@ function rotate() {
 setInterval(rotate, 2600);
 rotate();
 
-// Subtle luxury parallax
+// Luxury parallax effect
 const heroImage = document.querySelector(".lux-image");
 
 window.addEventListener("scroll", () => {
   const scrollY = window.scrollY;
-  heroImage.style.transform = `translateY(${scrollY * 0.04}px)`;
+  heroImage.style.transform = `translateY(${scrollY * 0.05}px)`;
 });
