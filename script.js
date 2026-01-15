@@ -31,7 +31,6 @@ const rotatingText = document.getElementById("rotatingText");
 
 function rotateText() {
   rotatingText.style.opacity = 0;
-
   setTimeout(() => {
     rotatingText.textContent = phrases[index];
     rotatingText.style.opacity = 1;
@@ -41,5 +40,3 @@ function rotateText() {
 
 setInterval(rotateText, 2500);
 rotateText();
-
-console.log("Site loaded successfully");
