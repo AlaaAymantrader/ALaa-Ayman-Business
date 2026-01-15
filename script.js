@@ -1,17 +1,4 @@
-// Scroll animations
-const animatedElements = document.querySelectorAll('.animate');
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('show');
-    }
-  });
-}, { threshold: 0.2 });
-
-animatedElements.forEach(el => observer.observe(el));
-
-// Rotating headlines
+// Rotating text
 const phrases = [
   "Learn Trading Step by Step",
   "Trading Education for Beginners",
@@ -40,3 +27,16 @@ function rotateText() {
 
 setInterval(rotateText, 2500);
 rotateText();
+
+// Water ripple touch effect
+document.addEventListener("click", function(e) {
+  const ripple = document.createElement("div");
+  ripple.className = "ripple";
+  ripple.style.left = e.clientX + "px";
+  ripple.style.top = e.clientY + "px";
+  document.body.appendChild(ripple);
+
+  setTimeout(() => {
+    ripple.remove();
+  }, 1000);
+});
