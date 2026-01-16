@@ -1,154 +1,77 @@
-:root {
-    --bg-dark: #00050a;       /* Almost pure black */
-    --accent: #38bdf8;        /* Electric Blue */
-    --accent-glow: rgba(56, 189, 248, 0.5);
-    --surface: #0f1623;       /* Dark Blue/Grey */
-    --text-main: #ffffff;
-    --text-dim: #94a3b8;
-    --border: rgba(255, 255, 255, 0.1);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    font-family: 'Inter', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f7f7f7;
+  color: #333;
 }
 
-/* --- BACKGROUND --- */
-.grid-bg {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background-image: radial-gradient(var(--border) 1px, transparent 1px);
-    background-size: 30px 30px;
-    opacity: 0.3; z-index: -1;
-}
-.blue-orb {
-    position: fixed; top: -100px; left: 50%; transform: translateX(-50%);
-    width: 300px; height: 300px; background: var(--accent);
-    filter: blur(150px); opacity: 0.2; z-index: -1;
+.hero {
+  background: url("hero.jpg") center/cover no-repeat;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* --- CONTAINER --- */
-.main-container {
-    max-width: 500px; margin: 0 auto; padding: 40px 20px;
+.overlay {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  padding: 40px;
+  text-align: center;
+  max-width: 700px;
+  border-radius: 10px;
 }
 
-/* --- HERO --- */
-.profile-header { text-align: center; margin-bottom: 40px; }
-
-/* BIGGER & ANIMATED AVATAR */
-.avatar-wrapper {
-    position: relative; width: 170px; height: 170px; margin: 0 auto 30px;
-    animation: float 6s ease-in-out infinite;
-}
-@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-
-.spin-border {
-    position: absolute; inset: -5px; border-radius: 50%;
-    border: 2px dashed var(--accent); opacity: 0.5;
-    animation: spin 20s linear infinite;
-}
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.avatar-img {
-    width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-    border: 4px solid var(--bg-dark); position: relative; z-index: 2;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+.overlay h1 {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
 }
 
-.verified-badge {
-    position: absolute; bottom: 5px; right: 5px; width: 45px; height: 45px; z-index: 5;
-    background: #fff; border-radius: 50%; padding: 2px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+.overlay p {
+  font-size: 1.2rem;
 }
 
-/* HEADLINE & STORY */
-h1 {
-    font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 2.8rem;
-    line-height: 1.05; margin-bottom: 15px; letter-spacing: -1px;
-}
-.gradient-text {
-    background: linear-gradient(to right, #fff, var(--accent));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-}
-.story-text {
-    font-size: 1rem; color: var(--text-dim); line-height: 1.6;
-    background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px;
-    border: 1px solid var(--border);
+.buttons {
+  margin-top: 20px;
 }
 
-/* --- BUTTONS --- */
-.action-area { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
-
-.mega-btn {
-    position: relative; display: flex; align-items: center; padding: 18px;
-    border-radius: 16px; text-decoration: none; overflow: hidden;
-    transition: 0.2s;
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  margin: 10px;
+  background: #00b894;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: 0.3s;
 }
 
-/* Primary Button Styles */
-.mega-btn.primary {
-    background: var(--accent);
-    box-shadow: 0 0 30px rgba(56, 189, 248, 0.25);
-    border: 1px solid rgba(255,255,255,0.2);
+.btn:hover {
+  background: #019875;
 }
-.mega-btn.primary:active { transform: scale(0.97); }
 
-/* Radar Wave Animation */
-.radar-wave {
-    position: absolute; inset: 0; border-radius: 16px;
-    border: 2px solid rgba(255,255,255,0.8);
-    animation: ripple 2s infinite; opacity: 0;
+.btn.secondary {
+  background: #0984e3;
 }
-@keyframes ripple { 0% { transform: scale(0.95); opacity: 0.5; } 100% { transform: scale(1.1); opacity: 0; } }
 
-/* Shine Sweep Animation */
-.btn-shine {
-    position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    transform: skewX(-20deg); animation: shine 3s infinite;
+.btn.secondary:hover {
+  background: #0769b3;
 }
-@keyframes shine { 0% { left: -100%; } 20% { left: 200%; } 100% { left: 200%; } }
 
-/* Inner Button Layout */
-.btn-icon {
-    width: 45px; height: 45px; background: rgba(0,0,0,0.2); border-radius: 10px;
-    display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-    color: #fff; margin-right: 15px; flex-shrink: 0;
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+  background: #fff;
 }
-.btn-text { flex: 1; display: flex; flex-direction: column; }
-.label { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.1rem; color: #000; letter-spacing: -0.5px; }
-.sub-label { font-size: 0.8rem; color: rgba(0,0,0,0.7); font-weight: 600; text-transform: uppercase; }
-.btn-arrow { color: #000; margin-right: 5px; animation: slide 1.5s infinite; }
-@keyframes slide { 0%,100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
 
-/* Secondary Button */
-.mega-btn.secondary {
-    background: var(--surface); border: 1px solid var(--border);
+.container h2 {
+  margin-top: 30px;
 }
-.btn-icon.sec { background: rgba(255,255,255,0.05); color: var(--accent); }
-.secondary .label { color: #fff; }
-.secondary .sub-label { color: var(--text-dim); }
 
-/* --- STATS DECK --- */
-.stats-deck {
-    display: flex; gap: 10px; justify-content: space-between; margin-bottom: 40px;
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #222;
+  color: #fff;
 }
-.stat-box {
-    background: var(--surface); border: 1px solid var(--border);
-    flex: 1; padding: 15px 10px; border-radius: 12px; text-align: center;
-    color: var(--text-dim); font-size: 0.75rem;
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-}
-.stat-box i { font-size: 1.2rem; color: var(--accent); }
-
-/* --- FOOTER --- */
-.clean-footer {
-    text-align: center; color: #555; font-size: 0.75rem; padding-top: 20px; border-top: 1px solid #111;
-}
-.links { margin: 10px 0; }
-.links a { color: #666; text-decoration: none; margin: 0 5px; }
