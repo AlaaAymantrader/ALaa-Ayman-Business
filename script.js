@@ -1,25 +1,38 @@
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Entrance Animation
-    const elements = ['.avatar-wrapper', 'h1', '.story-text', '.action-area', '.stats-deck'];
-    
-    elements.forEach((selector, index) => {
-        const el = document.querySelector(selector);
-        if(el) {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-            
-            setTimeout(() => {
-                el.style.opacity = '1';
-                el.style.transform = 'translateY(0)';
-            }, 100 + (index * 120));
-        }
-    });
+// Check if page loaded correctly
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("Landing page loaded successfully.");
+});
 
-    // 2. Dynamic Year
-    const yearSpan = document.getElementById('year');
-    if (yearSpan) {
-        yearSpan.innerText = new Date().getFullYear();
+// Simple fade-in effect
+window.addEventListener("load", function () {
+  const elements = document.querySelectorAll("h1, h2, p, a");
+  elements.forEach((el, index) => {
+    el.style.opacity = 0;
+    el.style.transition = "opacity 0.6s ease";
+    setTimeout(() => {
+      el.style.opacity = 1;
+    }, index * 100);
+  });
+});
+
+// Button click tracking (no cookies, no storage)
+const buttons = document.querySelectorAll(".btn");
+
+buttons.forEach((btn) => {
+  btn.addEventListener("click", function () {
+    console.log("Button clicked:", btn.textContent);
+  });
+});
+
+// Smooth scroll for internal links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth"
+      });
     }
+  });
 });
