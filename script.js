@@ -1,126 +1,137 @@
 // Initialize when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize animations
-    initTypingText();
-    initStatsAnimation();
+    initLiveCounter();
+    initAnimations();
+    initButtonEffects();
     initScrollAnimations();
-    initInteractiveElements();
-    initTouchEffects();
-    initChartDemo();
-    
-    // Remove loading screen after 2 seconds
-    setTimeout(() => {
-        const loadingScreen = document.querySelector('.loading-screen');
-        if (loadingScreen) {
-            loadingScreen.style.opacity = '0';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 500);
-        }
-    }, 2000);
 });
 
-// Typing Text Animation
-function initTypingText() {
-    const text = "WHERE 37,450+ TRADERS GET WINNING SIGNALS";
-    const typingElement = document.getElementById('typingText');
-    let i = 0;
+// Live Counter Animation
+function initLiveCounter() {
+    const counterElement = document.getElementById('liveCount');
+    if (!counterElement) return;
     
-    function typeWriter() {
-        if (i < text.length) {
-            typingElement.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, 50);
-        } else {
-            // Start cursor blink
-            setInterval(() => {
-                const cursor = document.querySelector('.cursor');
-                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
-            }, 500);
-        }
+    let count = 37450;
+    let isCounting = false;
+    
+    // Function to update counter
+    function updateCounter() {
+        const increment = Math.floor(Math.random() * 3) + 1; // 1-3
+        count += increment;
+        counterElement.textContent = count.toLocaleString();
+        
+        // Add visual feedback
+        counterElement.style.transform = 'scale(1.1)';
+        counterElement.style.color = '#10b981';
+        
+        setTimeout(() => {
+            counterElement.style.transform = 'scale(1)';
+            counterElement.style.color = '#0088cc';
+        }, 300);
     }
     
-    // Start typing after 1 second
-    setTimeout(typeWriter, 1000);
+    // Start counter when element is in view
+    const observer = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !isCounting) {
+            isCounting = true;
+            
+            // Update every 5-10 seconds randomly
+            setInterval(() => {
+                updateCounter();
+            }, Math.random() * 5000 + 5000); // 5-10 seconds
+        }
+    }, { threshold: 0.5 });
+    
+    observer.observe(counterElement);
 }
 
-// Animated Stats Counter
-function initStatsAnimation() {
-    const statItems = document.querySelectorAll('.stat-item[data-count]');
-    
-    statItems.forEach(item => {
-        const target = parseInt(item.getAttribute('data-count'));
-        const numberElement = item.querySelector('.stat-number');
-        const canvas = item.querySelector('.stat-canvas');
-        const ctx = canvas.getContext('2d');
+// Button Effects
+function initButtonEffects() {
+    // Main Telegram Button Hover Effect
+    const mainBtn = document.querySelector('.telegram-btn-main');
+    if (mainBtn) {
+        mainBtn.addEventListener('mouseenter', () => {
+            const pulse = mainBtn.querySelector('.btn-pulse');
+            pulse.style.animation = 'pulse 0.5s ease-out';
+            setTimeout(() => {
+                pulse.style.animation = 'pulse 2s infinite';
+            }, 500);
+        });
         
-        let current = 0;
-        const increment = target / 100;
-        const duration = 2000; // 2 seconds
-        const stepTime = duration / 100;
-        
-        // Draw circle progress
-        function drawProgress(percent) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Background circle
-            ctx.beginPath();
-            ctx.arc(50, 50, 45, 0, Math.PI * 2);
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-            ctx.lineWidth = 8;
-            ctx.stroke();
-            
-            // Progress circle
-            ctx.beginPath();
-            ctx.arc(50, 50, 45, -Math.PI / 2, (-Math.PI / 2) + (Math.PI * 2 * percent));
-            ctx.strokeStyle = '#3b82f6';
-            ctx.lineWidth = 8;
-            ctx.lineCap = 'round';
-            ctx.stroke();
-        }
-        
-        // Start animation when element is in view
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                const timer = setInterval(() => {
-                    current += increment;
-                    if (current >= target) {
-                        current = target;
-                        clearInterval(timer);
-                    }
-                    
-                    // Update number
-                    if (item.getAttribute('data-count') === '87') {
-                        numberElement.textContent = Math.floor(current) + '%';
-                    } else {
-                        numberElement.textContent = Math.floor(current).toLocaleString();
-                    }
-                    
-                    // Update progress circle
-                    drawProgress(current / target);
-                }, stepTime);
+        // Click animation
+        mainBtn.addEventListener('click', (e) => {
+            // Only animate if it's a Telegram link
+            if (mainBtn.href.includes('t.me')) {
+                // Create ripple effect
+                const rect = mainBtn.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
                 
-                observer.unobserve(item);
+                const ripple = document.createElement('span');
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.6);
+                    transform: translate(-50%, -50%) scale(0);
+                    animation: rippleEffect 0.6s linear;
+                    pointer-events: none;
+                    z-index: 3;
+                `;
+                
+                // Set position and size
+                const size = Math.max(rect.width, rect.height);
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                
+                mainBtn.appendChild(ripple);
+                
+                // Remove after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
             }
-        }, { threshold: 0.5 });
+        });
+    }
+    
+    // Secondary buttons hover effects
+    const secondaryBtns = document.querySelectorAll('.telegram-btn-secondary, .telegram-btn-large');
+    secondaryBtns.forEach(btn => {
+        btn.addEventListener('mouseenter', () => {
+            btn.style.transform = 'translateY(-5px)';
+        });
         
-        observer.observe(item);
+        btn.addEventListener('mouseleave', () => {
+            if (btn.classList.contains('telegram-btn-large')) {
+                btn.style.transform = 'translateY(-10px)';
+            } else {
+                btn.style.transform = 'translateY(-3px)';
+            }
+        });
     });
+    
+    // Add ripple animation to CSS
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `
+        @keyframes rippleEffect {
+            to {
+                transform: translate(-50%, -50%) scale(4);
+                opacity: 0;
+            }
+        }
+    `;
+    document.head.appendChild(rippleStyle);
 }
 
 // Scroll Animations
 function initScrollAnimations() {
-    const revealElements = document.querySelectorAll('.reveal');
+    const animatedElements = document.querySelectorAll('.feature, .testimonial, .final-cta');
     
-    const revealObserver = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                
-                // Add extra animation for specific elements
-                if (entry.target.classList.contains('feature-card')) {
-                    entry.target.style.animationDelay = (Math.random() * 0.5) + 's';
-                }
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
             }
         });
     }, {
@@ -128,388 +139,71 @@ function initScrollAnimations() {
         rootMargin: '0px 0px -50px 0px'
     });
     
-    revealElements.forEach(element => {
-        revealObserver.observe(element);
+    animatedElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(element);
     });
 }
 
-// Interactive Elements
-function initInteractiveElements() {
-    // 3D Card Hover Effect
-    const profileCard = document.getElementById('profileCard');
+// Init other animations
+function initAnimations() {
+    // Animate profile card on load
+    const profileCard = document.querySelector('.profile-card');
     if (profileCard) {
-        profileCard.addEventListener('mousemove', (e) => {
-            const cardRect = profileCard.getBoundingClientRect();
-            const x = e.clientX - cardRect.left;
-            const y = e.clientY - cardRect.top;
-            
-            const centerX = cardRect.width / 2;
-            const centerY = cardRect.height / 2;
-            
-            const rotateY = (x - centerX) / 25;
-            const rotateX = (centerY - y) / 25;
-            
-            profileCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
-        
-        profileCard.addEventListener('mouseleave', () => {
-            profileCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
-        });
-    }
-    
-    // Portal Hover Effect
-    const portal = document.getElementById('telegramPortal');
-    if (portal) {
-        portal.addEventListener('mouseenter', () => {
-            // Create particles
-            createPortalParticles();
-        });
-    }
-    
-    // Glass Cards Tilt Effect
-    VanillaTilt.init(document.querySelectorAll(".glass"), {
-        max: 15,
-        speed: 400,
-        glare: true,
-        "max-glare": 0.2,
-        scale: 1.05
-    });
-}
-
-// Portal Particles Effect
-function createPortalParticles() {
-    const portal = document.getElementById('telegramPortal');
-    const particlesContainer = document.getElementById('particles');
-    
-    for (let i = 0; i < 20; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'portal-particle';
-        particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 8 + 2}px;
-            height: ${Math.random() * 8 + 2}px;
-            background: #3b82f6;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: particleExplode 1s ease-out forwards;
-        `;
-        
-        // Random direction
-        const angle = Math.random() * Math.PI * 2;
-        const distance = 150;
-        
-        particle.style.setProperty('--endX', Math.cos(angle) * distance + 'px');
-        particle.style.setProperty('--endY', Math.sin(angle) * distance + 'px');
-        
-        particlesContainer.appendChild(particle);
-        
-        // Remove particle after animation
         setTimeout(() => {
-            particle.remove();
-        }, 1000);
+            profileCard.style.transform = 'translateY(0)';
+            profileCard.style.opacity = '1';
+        }, 300);
     }
-}
-
-// Add particle animation to CSS
-const particleStyle = document.createElement('style');
-particleStyle.textContent = `
-    @keyframes particleExplode {
-        0% {
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-        100% {
-            transform: translate(
-                calc(-50% + var(--endX)),
-                calc(-50% + var(--endY))
-            ) scale(0);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(particleStyle);
-
-// Touch Ripple Effect
-function initTouchEffects() {
-    const ripple = document.getElementById('touchRipple');
     
-    document.addEventListener('click', (e) => {
-        // Create ripple at click position
-        ripple.style.left = e.clientX + 'px';
-        ripple.style.top = e.clientY + 'px';
-        ripple.style.width = '0';
-        ripple.style.height = '0';
-        ripple.style.opacity = '1';
-        
-        // Animate ripple
+    // Animate headline
+    const headline = document.querySelector('.headline');
+    if (headline) {
         setTimeout(() => {
-            ripple.style.width = '100px';
-            ripple.style.height = '100px';
-            ripple.style.opacity = '0';
-            ripple.style.marginLeft = '-50px';
-            ripple.style.marginTop = '-50px';
-        }, 10);
-        
-        // Reset ripple
-        setTimeout(() => {
-            ripple.style.width = '0';
-            ripple.style.height = '0';
-            ripple.style.opacity = '0';
-            ripple.style.marginLeft = '0';
-            ripple.style.marginTop = '0';
+            headline.style.transform = 'translateY(0)';
+            headline.style.opacity = '1';
         }, 600);
-    });
-}
-
-// Trading Chart Demo
-function initChartDemo() {
-    const priceLine = document.getElementById('priceLine');
-    if (!priceLine) return;
-    
-    // Simulate price movement
-    let position = 0;
-    setInterval(() => {
-        position = (position + 1) % 100;
-        priceLine.style.transform = `translateX(${position}%)`;
-    }, 50);
-}
-
-// Simulate Buy Signal
-function simulateBuy() {
-    const chart = document.getElementById('tradingChart');
-    
-    // Create buy signal animation
-    const buySignal = document.createElement('div');
-    buySignal.className = 'buy-signal-animation';
-    buySignal.style.cssText = `
-        position: absolute;
-        top: 50%;
-        left: ${Math.random() * 80 + 10}%;
-        transform: translate(-50%, -50%);
-        width: 50px;
-        height: 50px;
-        background: rgba(16, 185, 129, 0.3);
-        border-radius: 50%;
-        animation: buyPulse 1s ease-out;
-        pointer-events: none;
-        z-index: 10;
-    `;
-    
-    chart.appendChild(buySignal);
-    
-    // Remove after animation
-    setTimeout(() => {
-        buySignal.remove();
-    }, 1000);
-    
-    // Play sound (optional)
-    playSound('buy');
-}
-
-// Simulate Sell Signal
-function simulateSell() {
-    const chart = document.getElementById('tradingChart');
-    
-    // Create sell signal animation
-    const sellSignal = document.createElement('div');
-    sellSignal.className = 'sell-signal-animation';
-    sellSignal.style.cssText = `
-        position: absolute;
-        top: 50%;
-        left: ${Math.random() * 80 + 10}%;
-        transform: translate(-50%, -50%);
-        width: 50px;
-        height: 50px;
-        background: rgba(239, 68, 68, 0.3);
-        border-radius: 50%;
-        animation: sellPulse 1s ease-out;
-        pointer-events: none;
-        z-index: 10;
-    `;
-    
-    chart.appendChild(sellSignal);
-    
-    // Remove after animation
-    setTimeout(() => {
-        sellSignal.remove();
-    }, 1000);
-    
-    // Play sound (optional)
-    playSound('sell');
-}
-
-// Add signal animations to CSS
-const signalStyle = document.createElement('style');
-signalStyle.textContent = `
-    @keyframes buyPulse {
-        0% {
-            transform: translate(-50%, -50%) scale(0.5);
-            opacity: 1;
-        }
-        100% {
-            transform: translate(-50%, -50%) scale(2);
-            opacity: 0;
-        }
-    }
-    
-    @keyframes sellPulse {
-        0% {
-            transform: translate(-50%, -50%) scale(0.5);
-            opacity: 1;
-        }
-        100% {
-            transform: translate(-50%, -50%) scale(2);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(signalStyle);
-
-// Sound Effects
-function playSound(type) {
-    const audio = document.getElementById('hoverSound');
-    if (audio) {
-        audio.currentTime = 0;
-        audio.play().catch(e => console.log('Audio play failed:', e));
     }
 }
 
-// Parallax Effect
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallaxLayers = document.querySelectorAll('.parallax-layer');
-    
-    parallaxLayers.forEach(layer => {
-        const speed = layer.getAttribute('data-speed') || 0.5;
-        const yPos = -(scrolled * speed);
-        layer.style.transform = `translateY(${yPos}px)`;
+// Track button clicks
+document.querySelectorAll('a[href*="t.me"]').forEach(link => {
+    link.addEventListener('click', function() {
+        // You can add Google Analytics or other tracking here
+        console.log('Telegram link clicked:', this.href);
+        
+        // Optional: Send data to analytics
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'telegram_click', {
+                'event_category': 'Conversion',
+                'event_label': this.href
+            });
+        }
     });
 });
 
-// Mobile Touch Gestures
-let touchStartY = 0;
-let touchEndY = 0;
-
-document.addEventListener('touchstart', (e) => {
-    touchStartY = e.changedTouches[0].screenY;
-});
-
-document.addEventListener('touchend', (e) => {
-    touchEndY = e.changedTouches[0].screenY;
-    handleSwipe();
-});
-
-function handleSwipe() {
-    const swipeDistance = touchEndY - touchStartY;
-    
-    // Upward swipe - show special effect
-    if (swipeDistance < -100) {
-        createConfetti();
-    }
-}
-
-// Confetti Effect for Mobile Swipe
-function createConfetti() {
-    const colors = ['#3b82f6', '#8b5cf6', '#10b981', '#f59e0b', '#ef4444'];
-    
-    for (let i = 0; i < 50; i++) {
-        const confetti = document.createElement('div');
-        confetti.className = 'confetti';
-        confetti.style.cssText = `
-            position: fixed;
-            width: ${Math.random() * 10 + 5}px;
-            height: ${Math.random() * 10 + 5}px;
-            background: ${colors[Math.floor(Math.random() * colors.length)]};
-            top: -20px;
-            left: ${Math.random() * 100}%;
-            border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
-            animation: confettiFall ${Math.random() * 3 + 2}s linear forwards;
-            z-index: 9999;
-            pointer-events: none;
-        `;
-        
-        document.body.appendChild(confetti);
-        
-        // Remove after animation
-        setTimeout(() => {
-            confetti.remove();
-        }, 5000);
-    }
-}
-
-// Add confetti animation to CSS
-const confettiStyle = document.createElement('style');
-confettiStyle.textContent = `
-    @keyframes confettiFall {
-        0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(100vh) rotate(${Math.random() * 360}deg);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(confettiStyle);
-
-// Real-time Subscriber Counter
-function updateLiveCounter() {
-    const counterElement = document.getElementById('counter');
-    if (!counterElement) return;
-    
-    let count = 37450;
-    
-    // Simulate new subscribers every few seconds
-    setInterval(() => {
-        // Random increment between 1-5
-        const increment = Math.floor(Math.random() * 5) + 1;
-        count += increment;
-        
-        // Update counter with animation
-        counterElement.textContent = count.toLocaleString();
-        
-        // Add visual feedback
-        counterElement.style.transform = 'scale(1.1)';
-        setTimeout(() => {
-            counterElement.style.transform = 'scale(1)';
-        }, 200);
-    }, 5000); // Update every 5 seconds
-}
-
-// Initialize live counter
-updateLiveCounter();
-
-// Gravity Button Effect
-const gravityBtn = document.getElementById('gravityBtn');
-if (gravityBtn) {
-    gravityBtn.addEventListener('mousemove', (e) => {
-        const rect = gravityBtn.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const distance = Math.sqrt(Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2));
-        const maxDistance = 150;
-        
-        if (distance < maxDistance) {
-            const force = (maxDistance - distance) / maxDistance;
-            const angle = Math.atan2(y - centerY, x - centerX);
-            
-            const buttonCore = gravityBtn.querySelector('.button-core');
-            const pullX = Math.cos(angle) * force * 20;
-            const pullY = Math.sin(angle) * force * 20;
-            
-            buttonCore.style.transform = `translate(-50%, -50%) translate(${pullX}px, ${pullY}px)`;
-        }
-    });
-    
-    gravityBtn.addEventListener('mouseleave', () => {
-        const buttonCore = gravityBtn.querySelector('.button-core');
-        buttonCore.style.transform = 'translate(-50%, -50%)';
+// Add subtle floating animation to features
+function addFloatingAnimations() {
+    const features = document.querySelectorAll('.feature');
+    features.forEach((feature, index) => {
+        feature.style.animationDelay = (index * 0.2) + 's';
     });
 }
+
+// Initialize floating animations
+addFloatingAnimations();
+
+// Mobile touch improvements
+document.addEventListener('touchstart', function() {}, { passive: true });
+
+// Prevent double-tap zoom on mobile
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(event) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
